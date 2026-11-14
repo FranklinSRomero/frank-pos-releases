@@ -4,14 +4,18 @@ Este repositorio se utiliza exclusivamente para distribuir **binarios compilados
 
 El mecanismo de actualizaciones de escritorio exige un manifiesto `latest.json`, su firma Ed25519 `latest.json.sig` y los archivos binarios indicados en el manifiesto. El cliente valida firma, version, plataforma, longitud y SHA-256 antes de activar una descarga.
 
+El puntero `releases/latest` se reserva para las publicaciones de escritorio.
+
 ## Instalacion y actualizaciones
 
 Descarga los paquetes desde [la ultima release](https://github.com/FranklinSRomero/frank-pos-releases/releases/latest).
 
 - **Windows x64:** extrae el paquete `bootstrap-windows-x86_64.zip` y abre `Instalar-FrankPOS.cmd` o el updater incluido. La instalacion es por usuario y crea accesos directos.
-- **Linux x64:** extrae `bootstrap-linux-x86_64.tar.gz` y ejecuta `bash install-frank-pos.sh`. La build 0.3.1 requiere glibc 2.44 o posterior.
+- **Linux x64:** extrae `bootstrap-linux-x86_64.tar.gz` y ejecuta `bash install-frank-pos.sh`. Las builds 0.3.1 y 0.3.2 requieren glibc 2.44 o posterior.
 
 Los paquetes bootstrap incluyen el updater. Este descarga y verifica el ejecutable firmado del POS antes de activarlo. El primer inicio permite crear la cuenta administradora local. Los siguientes arranques solo comprueban novedades; instalar requiere la accion del administrador en Ajustes > Actualizaciones.
+
+Desde 0.3.2, la cuenta de nube se conecta mediante un enlace enviado a un correo previamente habilitado en Supabase. El almacen seguro del sistema recuerda la sesion y el POS renueva el acceso automaticamente. La cuenta local del cajero sigue siendo independiente. Supabase debe autorizar `http://localhost:3000/frank-pos-auth/*` como URL de retorno.
 
 `latest.json` y `latest.json.sig` son los metadatos que consume automaticamente el updater. Los assets `linux-x86_64` y `windows-x86_64` son los ejecutables individuales del POS; los assets `bootstrap-*` son los paquetes de primera instalacion.
 
